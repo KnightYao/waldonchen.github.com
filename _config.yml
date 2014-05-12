@@ -9,7 +9,7 @@ highlighter: pygments
 # Themes are encouraged to use these universal variables
 # so be sure to set them if your theme uses them.
 #
-title : Blog
+title : Home
 tagline: Keep It Simple and Stupid!
 author :
   name : Junshi Chen
