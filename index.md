@@ -1,46 +1,72 @@
 ---
 layout: page
-title: Hello World!
-tagline: Supporting tagline
+title: 我的文章
+tagline:
 ---
 {% include JB/setup %}
 
-Read [Jekyll Quick Start](http://jekyllbootstrap.com/usage/jekyll-quick-start.html)
 
-Complete usage and documentation available at: [Jekyll Bootstrap](http://jekyllbootstrap.com)
+{% for post in site.posts %}
+  {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+  {% capture this_month %}{{ post.date | date: "%B" }}{% endcapture %}
+  {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
+  {% capture next_month %}{{ post.previous.date | date: "%B" }}{% endcapture %}
 
-## Update Author Attributes
+ {% if forloop.first %}
+<h2>{{ this_year }}</h2>
+<ul>
+  {% endif %}
 
-In `_config.yml` remember to specify your own data:
-    
-    title : My Blog =)
-    
-    author :
-      name : Name Lastname
-      email : blah@email.test
-      github : username
-      twitter : username
+<li><a href="{{ BASE_PATH }}{{post.url}}">{{ post.title }}</a></li>
 
-The theme should reference these variables whenever needed.
-    
-## Sample Posts
-
-This blog contains sample posts which help stage pages and blog data.
-When you don't need the samples anymore just delete the `_posts/core-samples` folder.
-
-    $ rm -rf _posts/core-samples
-
-Here's a sample "posts list".
-
-<ul class="posts">
-  {% for post in site.posts %}
-    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
-  {% endfor %}
+  {% if forloop.last %}
 </ul>
+  {% else %}
+    {% if this_year != next_year %}
+</ul>
+<h2>{{ next_year }}</h2>
+<ul>
+    {% else %}
+{% comment %}
+    {% if this_month != next_month %}
+</ul>
+<h3>{{ next_month }}</h3>
+<ul>
+      {% endif %}
+{% endcomment %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
 
-## To-Do
+<!-- {% for post in posts_collate %} -->
+  <!-- {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %} -->
+  <!-- {% capture this_month %}{{ post.date | date: "%B" }}{% endcapture %} -->
+  <!-- {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %} -->
+  <!-- {% capture next_month %}{{ post.previous.date | date: "%B" }}{% endcapture %} -->
 
-This theme is still unfinished. If you'd like to be added as a contributor, [please fork](http://github.com/plusjade/jekyll-bootstrap)!
-We need to clean up the themes, make theme usage guides with theme-specific markup examples.
+  <!-- {% if forloop.first %} -->
+  <!-- <h2>{{this_year}}</h2> -->
+  <!-- <h2>{{this_month}}</h2> -->
+  <!-- <ul> -->
+  <!-- {% endif %} -->
 
+  <!-- <li><span>{{ post.date | date: "%B %e, %Y" }}</span> &raquo; <a href="{{ BASE_PATH }}{{post.url}}">{{ post.title }}</a></li> -->
 
+  <!-- {% if forloop.last %} -->
+  <!-- </ul> -->
+  <!-- {% else %} -->
+    <!-- {% if this_year != next_year %} -->
+      <!-- </ul> -->
+      <!-- <h2>{{next_year}}</h2> -->
+      <!-- <h3>{{next_month}}</h3> -->
+      <!-- <ul> -->
+    <!-- {% else %} -->
+      <!-- {% if this_month != next_month %} -->
+        <!-- </ul> -->
+        <!-- <h3>{{next_month}}</h3> -->
+        <!-- <ul> -->
+      <!-- {% endif %} -->
+    <!-- {% endif %} -->
+  <!-- {% endif %} -->
+<!-- {% endfor %} -->
+<!-- {% assign posts_collate = nil %} -->
